@@ -6,13 +6,14 @@
 
 using namespace std;
 
-#define dummy -99999
+// #define dummy -99999
 
 template <typename T>
 class pArray
 {
     size_t pArraySize;  // size of list
     T *myArray;
+    T dummy;
     typedef T temp;
     omp_lock_t arrayLock;
 
@@ -27,6 +28,7 @@ Constructor for generic array type T, and size s
         // cout<<"Constructor: ";
         pArraySize = s;
         myArray = new T [pArraySize];
+        dummy = -99999;
         omp_init_lock(&(arrayLock));
     }
 
