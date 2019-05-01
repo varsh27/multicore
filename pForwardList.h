@@ -162,31 +162,30 @@ public:
     Erases element at position 'index'
     */
     void eraseAt(int index) {
-      if(index >= 0 && index < List_Size) {
-        pSListNode<T>* prev = Head;
-        pSListNode<T>* it = prev->next;
+      if(index < 0 || index >= List_Size) return;
 
-        while(index) {
-          if(!it) return;
-          prev = it;
-          it = it->next;
-          // index--;
-        }
+      pSListNode<T>* prev = Head;
+      pSListNode<T>* it = prev->next;
 
-        if(!it || it->data == sentinalInt) return;
-
-        omp_set_lock(&(prev->nodeLock));
-        omp_set_lock(&(it->nodeLock));
-        omp_set_lock(&(it->next->nodeLock));
-
-
-        prev->next = it->next;
-        free(it);
-        List_Size--;
-        omp_unset_lock(&(prev->nodeLock));
-        omp_unset_lock(&(prev->next->nodeLock));
+      while(index) {
+        if(!it) return;
+        prev = it;
+        it = it->next;
+        // index--;
       }
-      else return;
+
+      if(!it || it->data == sentinalInt) return;
+
+      omp_set_lock(&(prev->nodeLock));
+      omp_set_lock(&(it->nodeLock));
+      omp_set_lock(&(it->next->nodeLock));
+
+
+      prev->next = it->next;
+      free(it);
+      List_Size--;
+      omp_unset_lock(&(prev->nodeLock));
+      omp_unset_lock(&(prev->next->nodeLock));
     }
 
     /**
@@ -219,6 +218,7 @@ public:
     unordered_set<T> uniqueList() {
       pSListNode<T>* it;
       pSListNode<T>* prev;
+      pSListNode<T>* temp;
       unordered_set<T> s;
       #pragma omp critical
       {
@@ -227,10 +227,17 @@ public:
       }
       while(it != NULL) {
         prev = it;
+        it = it->next;
         if(s.find(it->data) == s.end()) {
           s.insert(it->data);
         }
-        it = it->next;
+        else {
+          temp = it;
+          it = it->next;
+          prev->next = it;
+          free(temp);
+          List_Size--;
+        }
         if(it) omp_set_lock(&(it->nodeLock));
         omp_unset_lock(&(prev->nodeLock));
       }
