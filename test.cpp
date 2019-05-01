@@ -19,18 +19,19 @@ void Test::Array(int op) {
   ofstream file(path);
   if (file.is_open())
   {
+    int num, arg1, arg2;
     file << "1\n";
     file << op <<"\n";
-    int size = (rand() % 20)+1;
-    file << "0 " + to_string(size) + "\n";
-    file << "7 0\n";                          //Constructor
-    for(int i = 0; i < size; i++) {
-      int num = rand_int_generator(elementRange);
-      file << "1 " + to_string(num) + "\n";   //Fill array with 0
+    int size = 1000;
+    file << "0 " + to_string(size) + "\n";    //Constructor
+    file << "7 0\n";                          //Fill array with 0
+    for(int i = 0; i < 100; i++) {
+      arg1 = i;
+      arg2 = rand_int_generator(elementRange);
+      file << "1 " + to_string(arg1) + " " + to_string(arg2) + "\n";
     }
-    int num, arg1, arg2;
-    for(int i = 0; i < op-size-2; i++) {
-       num = rand_int_generator(8) + 2;
+    for(int i = 0; i < op-102; i++) {
+       num = rand_int_generator(9) + 1;
        if(num == 1) {                         //Insert arg2 at index arg1
          arg1 = rand_int_generator(size-1);
          arg2 = rand_int_generator(elementRange);
