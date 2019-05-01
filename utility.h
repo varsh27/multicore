@@ -293,7 +293,7 @@ void testArray(struct testCase* t, int numThreads)
 
     cout<<t->operations[0][1];
     pArray <int> arr(t->operations[0][1]);
-    arr.printArray();
+    // arr.printArray();
 
     for(int i = 1 ; i < t->numOfOperations ; i++)
     {
