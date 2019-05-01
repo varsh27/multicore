@@ -37,6 +37,7 @@ public:
       Head = new pSListNode<T>(sentinalInt);
       omp_init_lock(&(Head->nodeLock));
       dummy = new pSListNode<T>(sentinalInt);
+      omp_init_lock(&(dummy->nodeLock));
       Head->next = dummy;
       // cout<<"Created a new list"<<endl;
     }
