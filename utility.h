@@ -332,7 +332,7 @@ void testForwardList(struct testCase* t, int numThreads)
             }
         }
     }
-    sll.listSize();
+    cout<<"Size: "<<sll.listSize();
 
 }
 
