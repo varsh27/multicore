@@ -6,7 +6,7 @@
 
 using namespace std;
 
-
+#define dummy -99999
 
 template <typename T>
 class pArray
@@ -14,6 +14,7 @@ class pArray
     size_t pArraySize;  // size of list
     T *myArray;
     typedef T temp;
+    omp_lock_t arrayLock;
 
 public:
 
@@ -23,24 +24,37 @@ Constructor for generic array type T, and size s
 */
     pArray(size_t s)
     {
-        cout<<"Constructor: ";
+        // cout<<"Constructor: ";
         pArraySize = s;
         myArray = new T [pArraySize];
+        omp_init_lock(&(arrayLock));
     }
+
+
+    void acquireLock()
+    {
+        #pragma omp critical
+        {
+            omp_set_lock(&(arrayLock));
+        }
+    }
+
+    void releaseLock()
+    {
+        omp_unset_lock(&(arrayLock));
+    }
+
 
 /**
 Overloading '[]' operator for array element access
 */
     T &operator[] (int index)
     {
-        cout<<"[]. ";
+        // cout<<"[]. ";
         if(index >= 0 && index < pArraySize)
             return myArray[index];
         else
-        {
-            cout<<"Array index out of bound!"<<endl;
-            throw index;
-        }
+            return dummy;
     }
 
 /**
@@ -48,7 +62,6 @@ Returns array size
 */
     int arraySize()
     {
-        cout<<"ArraySize. ";
         return pArraySize;
     }
 /**
@@ -56,9 +69,7 @@ Returns true if array is empty
 */
     bool isEmpty()
     {
-        cout<<"IsEmpty. ";
-        if(pArraySize == 0)
-            return true;
+        if(pArraySize == 0) return true;
         return false;
     }
 /**
@@ -66,9 +77,7 @@ Returns element at the front of the array
 */
     T front()
     {
-        cout<<"Front. ";
-        if(pArraySize == 0)
-            cout<<"Array is empty!"<<endl;
+        if(pArraySize == 0) return dummy;
         return myArray[0];
     }
 /**
@@ -76,9 +85,7 @@ Returns element at the back of the array
 */
     T back()
     {
-        cout<<"Back. ";
-        if(pArraySize == 0)
-            cout<<"ERROR! Array is empty!";
+        if(pArraySize == 0) return dummy;
         return myArray[pArraySize-1];
     }
 /**
@@ -86,26 +93,25 @@ Returns element at position 'index' of the array
 */
     T at(int index)
     {
-        cout<<"At. ";
         if(index >= 0 && index < pArraySize)
             return myArray[index];
-        else
-        {
-            cout<<"Array index out of bound!"<<endl;
-            throw index;
+        else return dummy;
         }
     }
 
     void fillArray(T element)
     {
-        cout<<"Filling array: ";
+        acquireLock();
+        #pragma omp parallel for num_threads(5)
         for(int i = 0 ; i < pArraySize ; i++)
             myArray[i] = element;
+        releaseLock();
     }
 
     void sortArray(bool ascending)
     {
-        cout<<"Sorting array: ";
+        return;
+        acquireLock();
         T temp;
         if(ascending)
         {
@@ -137,21 +143,24 @@ Returns element at position 'index' of the array
                 }
             }
         }
+        releaseLock();
     }
 
 
     void reverseArray()
     {
-        cout<<"Reversing array: ";
+        // cout<<"Reversing array: ";
         int lower = 0;
         int upper = pArraySize - 1;
-        T temp;
-        for(; lower < upper ; lower++, upper--)
+        acquireLock();
+        #pragma omp parallel for num_threads(5)
+        for(int i = 0; i < pArraySize/2; i++) //; lower < upper ; lower++, upper--)
         {
-            temp = myArray[lower];
-            myArray[lower] = myArray[upper];
-            myArray[upper] = temp;
+            T temp = myArray[i];
+            myArray[i] = myArray[pArraySize-i-1];
+            myArray[pArraySize-i-1] = temp;
         }
+        releaseLock();
     }
 
     void printArray()
@@ -166,7 +175,7 @@ Returns element at position 'index' of the array
     ~pArray()
     {
         free(myArray);
-        cout<<"Array deleted!"<<endl;
+        // cout<<"Array deleted!"<<endl;
     }
 
 };
