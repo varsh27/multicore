@@ -146,11 +146,14 @@ public:
         if(!it) return;
         prev = it;
         it = it->next;
-        // index--;
+        index--;
       }
 
-      omp_set_lock(&(prev->nodeLock));
-      omp_set_lock(&(it->nodeLock));
+      #pragma omp critical {
+        omp_set_lock(&(prev->nodeLock));
+        omp_set_lock(&(it->nodeLock));
+      }
+
 
       pSListNode<T>* p = new pSListNode<T>(element);
       omp_init_lock(&(p->nodeLock));
@@ -175,7 +178,7 @@ public:
         if(!it) return;
         prev = it;
         it = it->next;
-        // index--;
+        index--;
       }
 
       if(!it || it->data == sentinalInt) return;
