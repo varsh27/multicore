@@ -249,7 +249,7 @@ public:
           hashSet.insert(it->data);
         }
         it = it->next;
-        it(it) omp_set_lock(&(it->nodeLock));
+        if(it) omp_set_lock(&(it->nodeLock));
         omp_unset_lock(&(prev->nodeLock));
       }
       omp_unset_lock(&(prev->nodeLock));
