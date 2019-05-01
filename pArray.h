@@ -111,43 +111,6 @@ Returns element at position 'index' of the array
         releaseLock();
     }
 
-    void sortArray(bool ascending)
-    {
-        return;
-        acquireLock();
-        T temp;
-        if(ascending)
-        {
-            for(int i = 0 ; i < pArraySize ; i++)
-            {
-                for(int j = i+1 ; j < pArraySize ; j++)
-                {
-                    if(myArray[i] > myArray[j])
-                    {
-                        temp = myArray[i];
-                        myArray[i] = myArray[j];
-                        myArray[j] = temp;
-                    }
-                }
-            }
-        }
-        else
-        {
-            for(int i = pArraySize - 1 ; i >= 0 ; i--)
-            {
-                for(int j = i - 1 ; j >= 0 ; j--)
-                {
-                    if(myArray[i] > myArray[j])
-                    {
-                        temp = myArray[i];
-                        myArray[i] = myArray[j];
-                        myArray[j] = temp;
-                    }
-                }
-            }
-        }
-        releaseLock();
-    }
 
 
     void reverseArray()

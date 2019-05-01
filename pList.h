@@ -280,58 +280,6 @@ Constructor for generic doubly linked list type T
     }
 
 
-    void sortList(bool ascending)
-    {
-        //cout<<"NOT READY. Sorting: "<<endl;
-        //pListNode<T>* head = copyList(pListHead, NULL);
-        return;
-        if(ascending)
-        {
-            if(pListSize > 1)
-            {
-                for(int i = 0; i < pListSize - 1; i++)
-                {
-                    pListNode<T>* current = pListHead;
-                    pListNode<T>* next = pListHead->next;
-                    for(int j = 0; j < pListSize-i-1; j++)
-                    {
-                        if(current->data > next->data)
-                        {
-                            T temp = current->data;
-                            current->data = next->data;
-                            next->data = temp;
-                        }
-                        current = next;
-                        next = next->next;
-                    }
-                }
-            }
-        }
-        else
-        {
-            if(pListSize > 1)
-            {
-                for(int i = 0; i < pListSize-1; i++)
-                {
-                    pListNode<T>* current = pListHead;
-                    pListNode<T>* next = pListHead->next;
-                    for(int j = 0; j < pListSize-i-1; j++)
-                    {
-                        if(current->data < next->data)
-                        {
-                            T temp = current->data;
-                            current->data = next->data;
-                            next->data = temp;
-                        }
-                        current = next;
-                        next = next->next;
-                    }
-                }
-            }
-        }
-    }
-
-
 
     vector<T> reverseList()
     {
@@ -404,4 +352,3 @@ Constructor for generic doubly linked list type T
 };
 
 #endif // pList_h
-

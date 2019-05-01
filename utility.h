@@ -155,11 +155,6 @@ void testList(struct testCase* t, int numThreads)
                 unordered_set<int> dllUnique = dll.uniqueList();
                 break;
             }
-        case 14:
-            {
-                dll.sortList(t->operations[i][1]);
-                break;
-            }
         case 15:
             {
                 bool present = dll.searchElement(t->operations[i][1]);
@@ -167,7 +162,7 @@ void testList(struct testCase* t, int numThreads)
             }
         default:
             {
-                cout<<"default";
+                // cout<<"default";
             }
         }
     }
@@ -228,11 +223,6 @@ void testArray(struct testCase* t, int numThreads)
                 arr.fillArray(t->operations[i][1]);
                 break;
             }
-        case 8:
-            {
-                arr.sortArray(t->operations[i][1]);
-                break;
-            }
         case 9:
             {
                 arr.reverseArray();
@@ -240,10 +230,9 @@ void testArray(struct testCase* t, int numThreads)
             }
         default:
             {
-                cout<<"default";
+                // cout<<"default";
             }
         }
-        // arr.printArray();
     }
 
 }
@@ -326,7 +315,7 @@ void testForwardList(struct testCase* t, int numThreads)
             }
         }
     }
-    cout<<"Size: "<<sll.listSize()<<endl;
+    cout<<"Final Singly linked list size: "<<sll.listSize()<<endl;
 
 }
 
