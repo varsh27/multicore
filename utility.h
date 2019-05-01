@@ -321,14 +321,14 @@ void testForwardList(struct testCase* t, int numThreads)
               unordered_set<int> sllUnique = sll.uniqueList();
               break;
             }
-        case 11:
-            {
-              sll.sort(t->operations[i][1]);
-              break;
-            }
+        // case 11:
+        //     {
+        //       sll.sort(t->operations[i][1]);
+        //       break;
+        //     }
         default:
             {
-                cout<<"default";
+                // cout<<"default";
             }
         }
     }
