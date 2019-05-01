@@ -386,13 +386,13 @@ void testForwardList(struct testCase* t, int numThreads)
         case 3:
             {
                 sll.pushFront(t->operations[i][1]);
-                sll.printList();
+                // sll.printList();
                 break;
             }
         case 4:
             {
                 sll.popFront();
-                sll.printList();
+                // sll.printList();
                 break;
             }
         case 5:
