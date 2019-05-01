@@ -31,20 +31,6 @@ void Test::Array(int op) {
       file << "1 " + to_string(arg1) + " " + to_string(arg2) + "\n";
     }
     for(int i = 0; i < op-102; i++) {
-      // num = rand_int_generator(3);
-      // if(num == 0) {
-      //     arg1 = rand_int_generator(size-1);
-      //     arg2 = rand_int_generator(elementRange);
-      //     size++;
-      //     file << "1 " + to_string(arg1) + " " + to_string(arg2) + "\n";
-      // }
-      // else if(num == 1) {
-      //     arg1 = rand_int_generator(elementRange);
-      //     file << "7 " + to_string(arg1) + "\n";
-      // }
-      // else if(num == 2) {
-      //     file << "9\n";
-      // }
        num = rand_int_generator(9) + 1;
        if(num == 1) {                         //Insert arg2 at index arg1
          arg1 = rand_int_generator(size-1);
@@ -79,15 +65,19 @@ void Test::ForwardList(int op) {
   string path = "test_forwardlist_" + to_string(op) + ".txt";
   ofstream file(path);
 
-  int num, arg1, arg2, size=0;
+  int num, no, arg1, arg2, size=0;
 
   if (file.is_open())
   {
     int count = 0;
     file << "2\n";
     file << op <<"\n";
-    file << "0\n";                            //Constructor
-    for(int i = 0; i < 5; i++) {
+    file << "0\n";                  //Constructor
+
+    if(op < 50) no = 2;
+    else no = 40;
+
+    for(int i = 0; i < op/no; i++) {
       int num = rand_int_generator(elementRange);
       file << "3 " + to_string(num) + "\n";   //Push front 5 random numbers to list
       size++;
@@ -135,15 +125,19 @@ void Test::List(int op) {
   string path = "test_list_" + to_string(op) + ".txt";
   ofstream file(path);
 
-  int num, arg1, arg2, size=0;
+  int num, no, arg1, arg2, size=0;
 
   if (file.is_open())
   {
     int count = 0;
     file << "3\n";
     file << op <<"\n";
-    file << "0\n";                            //Constructor
-    for(int i = 0; i < op/40; i++) {
+    file << "0\n";
+
+    if(op < 50) no = 2;
+    else no = 40;
+
+    for(int i = 0; i < op/no; i++) {
       int num = rand_int_generator(elementRange);
       file << "3 " + to_string(num) + "\n";   //Push front 5 random numbers to list
       size++;
