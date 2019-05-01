@@ -96,7 +96,6 @@ Returns element at position 'index' of the array
         if(index >= 0 && index < pArraySize)
             return myArray[index];
         else return dummy;
-        }
     }
 
     void fillArray(T element)
