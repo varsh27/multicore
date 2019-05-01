@@ -350,7 +350,7 @@ void testArray(struct testCase* t, int numThreads)
                 cout<<"default";
             }
         }
-        arr.printArray();
+        // arr.printArray();
     }
 
 }
