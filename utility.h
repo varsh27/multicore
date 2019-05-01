@@ -373,14 +373,14 @@ void testForwardList(struct testCase* t, int numThreads)
         case 1:
             {
                 int s = sll.listSize();
-                cout<<"List size is "<<s<<endl;
+                // cout<<"List size is "<<s<<endl;
                 break;
             }
         case 2:
             {
                 bool check = sll.isEmpty();
-                if(check) cout<<"List is empty!"<<endl;
-                else cout<<"List is not empty!"<<endl;
+                // if(check) cout<<"List is empty!"<<endl;
+                // else cout<<"List is not empty!"<<endl;
                 break;
             }
         case 3:
@@ -403,13 +403,13 @@ void testForwardList(struct testCase* t, int numThreads)
         case 6:
             {
                 int element = sll.getIndex(t->operations[i][1]);
-            		cout<<"Element at index is: "<<element<<endl;
+            		// cout<<"Element at index is: "<<element<<endl;
             		break;
             }
         case 7:
             {
                 int element = sll.front();
-                cout<<"Element at front is "<<element<<endl;
+                // cout<<"Element at front is "<<element<<endl;
 		break;
             }
         case 8:
