@@ -142,7 +142,7 @@ public:
         if(!it) return;
         prev = it;
         it = it->next;
-        index--;
+        // index--;
       }
       #pragma omp critical
       {
@@ -171,7 +171,7 @@ public:
           if(!it) return;
           prev = it;
           it = it->next;
-          index--;
+          // index--;
         }
 
         if(!it || it->data == sentinalInt) return;
