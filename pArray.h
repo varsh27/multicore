@@ -103,7 +103,7 @@ Returns element at position 'index' of the array
     void fillArray(T element)
     {
         acquireLock();
-        #pragma omp parallel for num_threads(5)
+        #pragma omp parallel for num_threads(2)
         for(int i = 0 ; i < pArraySize ; i++)
             myArray[i] = element;
         releaseLock();
@@ -154,7 +154,7 @@ Returns element at position 'index' of the array
         int lower = 0;
         int upper = pArraySize - 1;
         acquireLock();
-        #pragma omp parallel for num_threads(5)
+        #pragma omp parallel for num_threads(2)
         for(int i = 0; i < pArraySize/2; i++) //; lower < upper ; lower++, upper--)
         {
             T temp = myArray[i];

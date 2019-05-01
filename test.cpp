@@ -22,7 +22,7 @@ void Test::Array(int op) {
     int num, arg1, arg2;
     file << "1\n";
     file << op <<"\n";
-    int size = 1000;
+    int size = 10000;
     file << "0 " + to_string(size) + "\n";    //Constructor
     file << "7 0\n";                          //Fill array with 0
     for(int i = 0; i < 100; i++) {
