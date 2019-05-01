@@ -149,7 +149,7 @@ public:
         index--;
       }
 
-      #pragma omp critical 
+      #pragma omp critical
       {
         omp_set_lock(&(prev->nodeLock));
         omp_set_lock(&(it->nodeLock));
@@ -179,11 +179,12 @@ public:
         if(!it) return;
         prev = it;
         it = it->next;
-        // index--;
+        index--;
       }
 
       if(!it || it->data == sentinalInt) return;
 
+      
       omp_set_lock(&(prev->nodeLock));
       omp_set_lock(&(it->nodeLock));
       omp_set_lock(&(it->next->nodeLock));
@@ -245,47 +246,6 @@ public:
       return s;
     }
 
-    /**
-    Sorts list in ascending on descending order specified by argument passed to it
-    */
-    void sort(bool ascending) {
-      return;
-      if(List_Size > 1) {
-        // pSListNode<T>* newHead = copyList(Head->next);
-        if(ascending) {
-          int i,j;
-          for(i = 0; i < List_Size-1; i++ ) {
-            pSListNode<T>* current = Head;
-            pSListNode<T>* next = Head->next;
-            for(j = 0; j < List_Size-i-1; j++ ) {
-              if(current->data > next->data) {
-                T temp = current->data;
-                current->data = next->data;
-                next->data = temp;
-              }
-              current = next;
-              next = next->next;
-            }
-          }
-        }
-        else {
-          int i,j;
-          for(i = 0; i < List_Size-1; i++ ) {
-            pSListNode<T>* current = Head;
-            pSListNode<T>* next = Head->next;
-            for(j = 0; j < List_Size-i-1; j++ ) {
-              if(current->data < next->data) {
-                T temp = current->data;
-                current->data = next->data;
-                next->data = temp;
-              }
-              current = next;
-              next = next->next;
-            }
-          }
-        }
-      }
-    }
 
     /**
     Prints the contents of the list
