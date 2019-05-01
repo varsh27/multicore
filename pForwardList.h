@@ -179,12 +179,12 @@ public:
         if(!it) return;
         prev = it;
         it = it->next;
-        index--;
+        // index--;
       }
 
       if(!it || it->data == sentinalInt) return;
 
-      
+
       omp_set_lock(&(prev->nodeLock));
       omp_set_lock(&(it->nodeLock));
       omp_set_lock(&(it->next->nodeLock));
