@@ -218,7 +218,6 @@ public:
     unordered_set<T> uniqueList() {
       pSListNode<T>* it;
       pSListNode<T>* prev;
-      pSListNode<T>* temp;
       unordered_set<T> s;
       #pragma omp critical
       {
@@ -227,17 +226,10 @@ public:
       }
       while(it != NULL) {
         prev = it;
-        it = it->next;
         if(s.find(it->data) == s.end()) {
           s.insert(it->data);
         }
-        else {
-          temp = it;
-          it = it->next;
-          prev->next = it;
-          free(temp);
-          List_Size--;
-        }
+        it = it->next;
         if(it) omp_set_lock(&(it->nodeLock));
         omp_unset_lock(&(prev->nodeLock));
       }
