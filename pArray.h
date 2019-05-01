@@ -16,7 +16,7 @@ class pArray
     T dummy;
     typedef T temp;
     omp_lock_t arrayLock;
-    int thread_num = 2;
+    int thread_num = 1;
 
 public:
 

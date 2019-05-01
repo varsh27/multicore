@@ -170,7 +170,6 @@ void testList(struct testCase* t, int numThreads)
                 cout<<"default";
             }
         }
-        //dll.printList();
     }
     cout<<endl;
     cout<<"Final Doubly linked list size: "<<dll.listSize()<<endl;
@@ -321,11 +320,6 @@ void testForwardList(struct testCase* t, int numThreads)
               unordered_set<int> sllUnique = sll.uniqueList();
               break;
             }
-        // case 11:
-        //     {
-        //       sll.sort(t->operations[i][1]);
-        //       break;
-        //     }
         default:
             {
                 // cout<<"default";
