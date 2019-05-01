@@ -31,41 +31,41 @@ void Test::Array(int op) {
       file << "1 " + to_string(arg1) + " " + to_string(arg2) + "\n";
     }
     for(int i = 0; i < op-102; i++) {
-      num = rand_int_generator(3);
-      if(num == 0) {
-          arg1 = rand_int_generator(size-1);
-          arg2 = rand_int_generator(elementRange);
-          size++;
-          file << "1 " + to_string(arg1) + " " + to_string(arg2) + "\n";
-      }
-      else if(num == 1) {
-          arg1 = rand_int_generator(elementRange);
-          file << "7 " + to_string(arg1) + "\n";
-      }
-      else if(num == 2) {
-          file << "9\n";
-      }
-       // num = rand_int_generator(9) + 1;
-       // if(num == 1) {                         //Insert arg2 at index arg1
-       //   arg1 = rand_int_generator(size-1);
-       //   arg2 = rand_int_generator(elementRange);
-       //   file << "1 " + to_string(arg1) + " " + to_string(arg2) + "\n";
-       // }
-       // else if(num == 6) {                    //Retrieve element at arg1
-       //   arg1 = rand_int_generator(size-1);
-       //   file << "6 " + to_string(arg1) + "\n";
-       // }
-       // else if(num == 7) {                    //Fill array with arg1
-       //   arg1 = rand_int_generator(elementRange);
-       //   file << "7 " + to_string(arg1) + "\n";
-       // }
-       // else if(num == 8) {                    //Sort asc if arg1=1 else desc
-       //   arg1 = rand_int_generator(2);
-       //   file << "8 " + to_string(arg1) + "\n";
-       // }
-       // else {
-       //   file << to_string(num) + "\n";
-       // }
+      // num = rand_int_generator(3);
+      // if(num == 0) {
+      //     arg1 = rand_int_generator(size-1);
+      //     arg2 = rand_int_generator(elementRange);
+      //     size++;
+      //     file << "1 " + to_string(arg1) + " " + to_string(arg2) + "\n";
+      // }
+      // else if(num == 1) {
+      //     arg1 = rand_int_generator(elementRange);
+      //     file << "7 " + to_string(arg1) + "\n";
+      // }
+      // else if(num == 2) {
+      //     file << "9\n";
+      // }
+       num = rand_int_generator(9) + 1;
+       if(num == 1) {                         //Insert arg2 at index arg1
+         arg1 = rand_int_generator(size-1);
+         arg2 = rand_int_generator(elementRange);
+         file << "1 " + to_string(arg1) + " " + to_string(arg2) + "\n";
+       }
+       else if(num == 6) {                    //Retrieve element at arg1
+         arg1 = rand_int_generator(size-1);
+         file << "6 " + to_string(arg1) + "\n";
+       }
+       else if(num == 7) {                    //Fill array with arg1
+         arg1 = rand_int_generator(elementRange);
+         file << "7 " + to_string(arg1) + "\n";
+       }
+       else if(num == 8) {                    //Sort asc if arg1=1 else desc
+         arg1 = rand_int_generator(2);
+         file << "8 " + to_string(arg1) + "\n";
+       }
+       else {
+         file << to_string(num) + "\n";
+       }
     }
   }
 

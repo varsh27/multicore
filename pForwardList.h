@@ -95,8 +95,11 @@ public:
             Head->data = sentinalInt;
             free(node);
             List_Size--;
-
             omp_unset_lock(&(Head->nodeLock));
+          }
+          else {
+            omp_unset_lock(&(Head->nodeLock));
+            omp_unset_lock(&(Head->next->nodeLock));
           }
         }
       }
