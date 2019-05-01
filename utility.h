@@ -297,7 +297,6 @@ void testArray(struct testCase* t, int numThreads)
 
     for(int i = 1 ; i < t->numOfOperations ; i++)
     {
-        cout<<i<<" ";
         switch(t->operations[i][0])
         {
         case 1:
