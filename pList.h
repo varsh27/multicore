@@ -220,11 +220,9 @@ Constructor for generic doubly linked list type T
             prev = it;
             it = it->next;
         }
-        #pragma omp critical
-        {
-            omp_set_lock(&(prev->nodeLock));
-            omp_set_lock(&(it->nodeLock));
-        }
+        omp_set_lock(&(prev->nodeLock));
+        omp_set_lock(&(it->nodeLock));
+
 
         pListNode<T>* p = new pListNode<T>(element);
         omp_init_lock(&(p->nodeLock));
@@ -267,12 +265,9 @@ Constructor for generic doubly linked list type T
             return;
         }
 
-        #pragma omp critical
-        {
-            omp_set_lock(&(prev->nodeLock));
-            omp_set_lock(&(it->nodeLock));
-            omp_set_lock(&(it->next->nodeLock));
-        }
+        omp_set_lock(&(prev->nodeLock));
+        omp_set_lock(&(it->nodeLock));
+        omp_set_lock(&(it->next->nodeLock));
 
         prev->next = it->next;
         it->next->prev = prev;
@@ -366,9 +361,9 @@ Constructor for generic doubly linked list type T
     unordered_set<T> uniqueList()
     {
         //cout<<"NOT READY!"<<endl;
+        unordered_set<T> s;
         pListNode<T>* it;
         pListNode<T>* prev;
-        unordered_set<T> hashSet;
         #pragma omp critical
         {
             omp_set_lock(&(pListHead->nodeLock));
@@ -378,10 +373,8 @@ Constructor for generic doubly linked list type T
         while(it != NULL)
         {
             prev = it;
-            if(hashSet.find(it->data) == hashSet.end())
-            {
-                hashSet.insert(it->data);
-            }
+            if(s.find(it->data) == s.end())
+                s.insert(it->data);
             it = it->next;
             if(it)
                 omp_set_lock(&(it->nodeLock));
@@ -390,7 +383,7 @@ Constructor for generic doubly linked list type T
 
         omp_unset_lock(&(prev->nodeLock));
 
-        return hashSet;
+        return s;
     }
 
 

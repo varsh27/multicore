@@ -144,11 +144,10 @@ public:
         it = it->next;
         // index--;
       }
-      #pragma omp critical
-      {
-        omp_set_lock(&(prev->nodeLock));
-        omp_set_lock(&(it->nodeLock));
-      }
+
+      omp_set_lock(&(prev->nodeLock));
+      omp_set_lock(&(it->nodeLock));
+
       pSListNode<T>* p = new pSListNode<T>(element);
       omp_init_lock(&(p->nodeLock));
       p->next = it;
@@ -176,12 +175,10 @@ public:
 
         if(!it || it->data == sentinalInt) return;
 
-        #pragma omp critical
-        {
-          omp_set_lock(&(prev->nodeLock));
-          omp_set_lock(&(it->nodeLock));
-          omp_set_lock(&(it->next->nodeLock));
-        }
+        omp_set_lock(&(prev->nodeLock));
+        omp_set_lock(&(it->nodeLock));
+        omp_set_lock(&(it->next->nodeLock));
+
 
         prev->next = it->next;
         free(it);
@@ -222,7 +219,7 @@ public:
     unordered_set<T> uniqueList() {
       pSListNode<T>* it;
       pSListNode<T>* prev;
-      unordered_set<T> hashSet;
+      unordered_set<T> s;
       #pragma omp critical
       {
         omp_set_lock(&(Head->nodeLock));
@@ -230,15 +227,15 @@ public:
       }
       while(it != NULL) {
         prev = it;
-        if(hashSet.find(it->data) == hashSet.end()) {
-          hashSet.insert(it->data);
+        if(s.find(it->data) == s.end()) {
+          s.insert(it->data);
         }
         it = it->next;
         if(it) omp_set_lock(&(it->nodeLock));
         omp_unset_lock(&(prev->nodeLock));
       }
       omp_unset_lock(&(prev->nodeLock));
-      return hashSet;
+      return s;
     }
 
     /**
