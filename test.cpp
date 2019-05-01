@@ -31,8 +31,20 @@ void Test::Array(int op) {
       file << "1 " + to_string(arg1) + " " + to_string(arg2) + "\n";
     }
     for(int i = 0; i < op-102; i++) {
-      arg1 = rand_int_generator(elementRange);
-      file << "7 " + to_string(arg1) + "\n"; 
+      num = rand_int_generator(3);
+      if(num == 0) {
+          arg1 = rand_int_generator(size-1);
+          arg2 = rand_int_generator(elementRange);
+          size++;
+          file << "1 " + to_string(arg1) + " " + to_string(arg2) + "\n";
+      }
+      else if(num == 1) {
+          arg1 = rand_int_generator(elementRange);
+          file << "7 " + to_string(arg1) + "\n";
+      }
+      else if(num == 2) {
+          file << "9\n";
+      }
        // num = rand_int_generator(9) + 1;
        // if(num == 1) {                         //Insert arg2 at index arg1
        //   arg1 = rand_int_generator(size-1);
