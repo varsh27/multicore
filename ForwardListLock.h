@@ -212,7 +212,7 @@ public:
     */
     vector<T> reverseList() {
       vector<T> reversedList;
-      PSListNode<T>* it;
+      pSListNode<T>* it;
       pSListNode<T>* prev;
       #pragma omp critical
       {
@@ -235,8 +235,8 @@ public:
     Removes duplicate elements from a list by keeping only the first occurence of the element
     */
     unordered_set<T> uniqueList() {
-      pSListNode<t>* it;
-      pSListNode<t>* prev;
+      pSListNode<T>* it;
+      pSListNode<T>* prev;
       unordered_set<T> hashSet;
       #pragma omp critical
       {
