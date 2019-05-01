@@ -1,3 +1,4 @@
+
 #ifndef pList_h
 #define pList_h
 
@@ -175,6 +176,7 @@ Constructor for generic doubly linked list type T
         {
             if(it->data == element)
                 return true;
+	    it = it->next;
         }
         return false;
     }
@@ -402,3 +404,4 @@ Constructor for generic doubly linked list type T
 };
 
 #endif // pList_h
+

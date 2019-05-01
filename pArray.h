@@ -16,7 +16,7 @@ class pArray
     T dummy;
     typedef T temp;
     omp_lock_t arrayLock;
-    int thread_num = 4;
+    int thread_num;
 
 public:
 
@@ -24,12 +24,13 @@ public:
 /**
 Constructor for generic array type T, and size s
 */
-    pArray(size_t s)
+    pArray(size_t s, int numThreads)
     {
         // cout<<"Constructor: ";
         pArraySize = s;
         myArray = new T [pArraySize];
         dummy = -99999;
+        thread_num = numThreads;
         omp_init_lock(&(arrayLock));
     }
 
