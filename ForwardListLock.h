@@ -247,12 +247,12 @@ public:
     void sort(bool ascending) {
       return;
       if(List_Size > 1) {
-        pSListNode<T>* newHead = copyList(Head->next);
+        // pSListNode<T>* newHead = copyList(Head->next);
         if(ascending) {
           int i,j;
           for(i = 0; i < List_Size-1; i++ ) {
-            pSListNode<T>* current = newHead;
-            pSListNode<T>* next = newHead->next;
+            pSListNode<T>* current = Head;
+            pSListNode<T>* next = Head->next;
             for(j = 0; j < List_Size-i-1; j++ ) {
               if(current->data > next->data) {
                 T temp = current->data;
@@ -267,8 +267,8 @@ public:
         else {
           int i,j;
           for(i = 0; i < List_Size-1; i++ ) {
-            pSListNode<T>* current = newHead;
-            pSListNode<T>* next = newHead->next;
+            pSListNode<T>* current = Head;
+            pSListNode<T>* next = Head->next;
             for(j = 0; j < List_Size-i-1; j++ ) {
               if(current->data < next->data) {
                 T temp = current->data;
@@ -279,14 +279,6 @@ public:
               next = next->next;
             }
           }
-        }
-        cout<<"Sorted list: ";
-        pSListNode<T>* it;
-        while(newHead != NULL) {
-          cout<<newHead->data<<" ";
-          it = newHead;
-          newHead = newHead->next;
-          free(it);
         }
       }
     }
