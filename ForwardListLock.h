@@ -33,23 +33,12 @@ public:
   */
     pSList() {
       List_Size = 0;
+      Head = NULL;
       Head = new pSListNode<T>(sentinalInt);
       omp_init_lock(&(Head->nodeLock));
       dummy = new pSListNode<T>(sentinalInt);
       Head->next = dummy;
-      cout<<"Created a new list"<<endl;
-    }
-
-    /**
-    Returns pointer to a copy of the list
-    */
-
-    pSListNode<T>* copyList(pSListNode<T>* list) {
-      if (list->next == NULL) return NULL;
-      pSListNode<T>* newHead = new pSListNode<T>(0);
-      newHead->data = list->data;
-      newHead->next = copyList(list->next);
-      return newHead;
+      // cout<<"Created a new list"<<endl;
     }
 
     /**
@@ -73,10 +62,9 @@ public:
     void pushFront(T element) {
       #pragma omp critical
       {
-        cout<<"Pushing new element at front "<<element<<endl;
+        // cout<<"Pushing new element at front "<<element<<endl;
         pSListNode<T>* p = new pSListNode<T>(element);
         omp_init_lock(&(p->nodeLock));
-
         omp_set_lock(&(Head->nodeLock));
         omp_set_lock(&(Head->next->nodeLock));
 
@@ -93,26 +81,23 @@ public:
     Deletes element at the front of the list
     */
     void popFront() {
-      if(List_Size == 0) {
-        cout<<"List is empty!"<<endl;
-        return;
-      }
-      else {
-        omp_set_lock(&(Head->nodeLock));
-        omp_set_lock(&(Head->next->nodeLock));
+      #pragma omp critical
+      {
+        if(List_Size != 0) {
+          omp_set_lock(&(Head->nodeLock));
+          omp_set_lock(&(Head->next->nodeLock));
 
-        // omp_set_lock(&(Head->next->next->nodeLock));
-        if(Head->next->data != sentinalInt) {
+          // omp_set_lock(&(Head->next->next->nodeLock));
+          if(Head->next->data != sentinalInt) {
+            // cout<<"Popped "<<Head->next->data<<endl;
+            pSListNode<T>* node = Head;
+            Head = node->next;
+            Head->data = sentinalInt;
+            free(node);
+            List_Size--;
 
-          cout<<"Popped "<<Head->next->data<<endl;
-
-          pSListNode<T>* node = Head;
-          Head = node->next;
-          Head->data = sentinalInt;
-          free(node);
-          List_Size--;
-
-          omp_unset_lock(&(Head->nodeLock));
+            omp_unset_lock(&(Head->nodeLock));
+          }
         }
       }
     }
