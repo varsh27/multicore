@@ -8,7 +8,7 @@ Run executable            (./createTest <data-struture> <number-of-operations>)
 Run makefile              (make)
 Run simulator executable  (./simulator <test-file-name> <number-of-threads>)
 
-Valid characters for <data-struture>: d OR s OR a
+Valid characters for <data-struture>: q OR d OR s OR l OR a
 
 q - Creates test case for Dequeue
 d - Creates test case for Doubly Linked List
@@ -20,6 +20,7 @@ Valid <number-of-operations> values: Positive integers
 Valid <number-of-threads> values: Positive integers
 Valid <test-file-name> values: Name of the test file created
 
+Test file will be named as test_<data-structure>_<number-of-operations>.txt and saved in the current folder.
 
 
 Example steps to check dequeue data-struture with 1000 operations, 1 thread:
@@ -38,7 +39,7 @@ module load gcc-8.2
 g++ -o createTest test.cpp
 ./createTest s 4000
 make
-./simulator test_dequeue_4000.txt 8
+./simulator test_stack_4000.txt 8
 
 
 
@@ -48,6 +49,6 @@ module load gcc-8.2
 g++ -o createTest test.cpp
 ./createTest d 10000
 make
-./simulator test_dequeue_10000.txt 10
+./simulator test_list_10000.txt 10
 
 
