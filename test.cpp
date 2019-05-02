@@ -184,6 +184,87 @@ void Test::List(int op) {
   file.close();
 }
 
+
+void Test::Dequeue(int op) {
+  string path = "test_dequeue_" + to_string(op) + ".txt";
+  ofstream file(path);
+
+  int num, arg1, arg2, size=0;
+
+  if (file.is_open())
+  {
+    int count = 0;
+    file << "3\n";
+    file << op <<"\n";
+    file << "0\n";                            //Constructor
+    for(int i = 0; i < op/40; i++) {
+      int num = rand_int_generator(200);
+      file << "3 " + to_string(num) + "\n";   //Push front 5 random numbers to list
+      size++;
+      count++;
+    }
+    for(int i = 0; i < op-count-1; i++) {
+       num = rand_int_generator(10) + 1;
+       if(num == 3 || num == 4) {                        //Push Front or back element in arg1
+         arg1 = rand_int_generator(200);
+         file << to_string(num) + " " + to_string(arg1) + "\n";
+         size++;
+       }
+        else if(num == 7 || num == 8)
+        {
+            i--;
+        }
+       else {
+         file << to_string(num) + "\n";
+       }
+    }
+  }
+
+  else cout << "Unable to open file";
+  file.close();
+}
+
+
+void Test::Stack(int op) {
+  string path = "test_stack_" + to_string(op) + ".txt";
+  ofstream file(path);
+
+  int num, arg1, arg2, size=0;
+
+  if (file.is_open())
+  {
+    int count = 0;
+    file << "3\n";
+    file << op <<"\n";
+    file << "0\n";                            //Constructor
+    for(int i = 0; i < op/40; i++) {
+      int num = rand_int_generator(200);
+      file << "3 " + to_string(num) + "\n";   //Push front 5 random numbers to list
+      size++;
+      count++;
+    }
+    for(int i = 0; i < op-count-1; i++) {
+       num = rand_int_generator(7) + 1;
+       if(num == 3) {                        //Push Front or back element in arg1
+         arg1 = rand_int_generator(200);
+         file << to_string(num) + " " + to_string(arg1) + "\n";
+         size++;
+       }
+        else if(num == 5 || num == 6)
+        {
+            i--;
+        }
+       else {
+         file << to_string(num) + "\n";
+       }
+    }
+  }
+
+  else cout << "Unable to open file";
+  file.close();
+}
+
+
 int main(int argc, char* argv[]) {
   srand(time(NULL));
   if(argc != 3) {
@@ -197,10 +278,16 @@ int main(int argc, char* argv[]) {
         t.Array(atoi(argv[2]));
         break;
       case 's':
+        t.Stack(atoi(argv[2]));
+        break;
+      case 'l':
         t.ForwardList(atoi(argv[2]));
         break;
       case 'd':
         t.List(atoi(argv[2]));
+        break;
+      case 'q':
+        t.Dequeue(atoi(argv[2]));
         break;
       default:
         cout<<"default";
