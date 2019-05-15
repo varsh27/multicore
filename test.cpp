@@ -234,7 +234,7 @@ void Test::Stack(int op) {
   if (file.is_open())
   {
     int count = 0;
-    file << "3\n";
+    file << "2\n";
     file << op <<"\n";
     file << "0\n";                            //Constructor
     for(int i = 0; i < op/40; i++) {
